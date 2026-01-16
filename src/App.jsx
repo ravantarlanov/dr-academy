@@ -704,14 +704,14 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
         </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <Field label="Full name" placeholder="Your name" />
-          <Field label="Email" placeholder="you@email.com" />
-          <Field label="Phone" placeholder="(###) ###-####" />
-          <Field label="City/State" placeholder="Wallingford, CT" />
+          <Field label="Full name" name="fullName" placeholder="Your name" />
+          <Field label="Email" name="email" type="email" placeholder="you@email.com" />
+          <Field label="Phone" name="phone" placeholder="(###) ###-####" />
+          <Field label="City/State" name="location" placeholder="Wallingford, CT" />
 
           <div className="grid gap-2 md:col-span-2">
             <label className="text-sm font-bold">Preferred schedule</label>
-            <select className="rounded-xl border border-black/10 px-3 py-2 text-sm">
+            <select name="schedule" className="rounded-xl border border-black/10 px-3 py-2 text-sm">
               <option>Live</option>
               <option>Recordings</option>
             </select>
@@ -720,6 +720,7 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
           <div className="grid gap-2 md:col-span-2">
             <label className="text-sm font-bold">Goals</label>
             <textarea
+              name="goals"
               rows={5}
               className="rounded-xl border border-black/10 px-3 py-2 text-sm"
               placeholder="Tell us your goal and what you want to achieve..."
@@ -728,9 +729,27 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
         </div>
 
         <div className="mt-6 flex flex-wrap gap-2">
-          <PrimaryButton onClick={() => setSubmitted(true)}>Submit Application</PrimaryButton>
-          <SecondaryButton onClick={onDone}>Back</SecondaryButton>
+          <form
+            name="academy-application"
+            method="POST"
+            data-netlify="true"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSubmitted(true);
+            }}
+          >
+            <input type="hidden" name="form-name" value="academy-application" />
+
+            <PrimaryButton type="submit">
+              Submit Application
+            </PrimaryButton>
+
+            <SecondaryButton type="button" onClick={onDone}>
+              Back
+            </SecondaryButton>
+          </form>
         </div>
+
 
         <div className="mt-6 grid gap-3 md:grid-cols-2">
           <Card>
@@ -782,11 +801,17 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
   );
 }
 
-function Field({ label, placeholder }) {
+function Field({ label, placeholder, name, type = "text" }) {
   return (
     <div className="grid gap-2">
       <label className="text-sm font-bold">{label}</label>
-      <input className="rounded-xl border border-black/10 px-3 py-2 text-sm" placeholder={placeholder} />
+      <input
+        name={name}
+        type={type}
+        className="rounded-xl border border-black/10 px-3 py-2 text-sm"
+        placeholder={placeholder}
+      />
     </div>
   );
 }
+
