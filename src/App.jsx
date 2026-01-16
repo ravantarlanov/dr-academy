@@ -733,8 +733,18 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
             name="academy-application"
             method="POST"
             data-netlify="true"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
+
+              const form = e.target;
+              const formData = new FormData(form);
+
+              await fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString(),
+              });
+
               setSubmitted(true);
             }}
           >
