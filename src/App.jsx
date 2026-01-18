@@ -703,7 +703,7 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
           Selected: <b>{program.name}</b>
         </div>
 
-      <form
+      <form netlify
         name="academy-application"
         method="POST"
         data-netlify="true"
@@ -770,7 +770,7 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
         </div>
 
         <div className="mt-6 flex flex-wrap gap-2">
-          <form
+          <form netlify
             name="academy-application"
             method="POST"
             data-netlify="true"
