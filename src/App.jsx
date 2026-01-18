@@ -703,103 +703,62 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
           Selected: <b>{program.name}</b>
         </div>
 
-      <form netlify
-        name="academy-application"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        onSubmit={async (e) => {
-          e.preventDefault();
+        <form
+          netlify
+          name="academy-application"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          onSubmit={async (e) => {
+            e.preventDefault();
 
-          const form = e.target;
-          const formData = new FormData(form);
+            const form = e.target;
+            const formData = new FormData(form);
 
-          await fetch("/", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString(),
-          });
+            await fetch("/", {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: new URLSearchParams(formData).toString(),
+            });
 
-          setSubmitted(true);
-        }}
+            setSubmitted(true);
+          }}
         >
-        <input type="hidden" name="form-name" value="academy-application" />
-        <input type="hidden" name="bot-field" />
+          <input type="hidden" name="form-name" value="academy-application" />
+          <input type="hidden" name="bot-field" />
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <Field label="Full name" name="fullName" placeholder="Your name" />
-          <Field label="Email" name="email" type="email" placeholder="you@email.com" />
-          <Field label="Phone" name="phone" placeholder="(###) ###-####" />
-          <Field label="City/State" name="location" placeholder="Wallingford, CT" />
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <Field label="Full name" name="fullName" placeholder="Your name" />
+            <Field label="Email" name="email" type="email" placeholder="you@email.com" />
+            <Field label="Phone" name="phone" placeholder="(###) ###-####" />
+            <Field label="City/State" name="location" placeholder="Wallingford, CT" />
 
-          <div className="grid gap-2 md:col-span-2">
-            <label className="text-sm font-bold">Preferred schedule</label>
-            <select name="schedule" className="rounded-xl border border-black/10 px-3 py-2 text-sm">
-              <option value="Live">Live</option>
-              <option value="Recordings">Recordings</option>
-            </select>
+            <div className="grid gap-2 md:col-span-2">
+              <label className="text-sm font-bold">Preferred schedule</label>
+              <select name="schedule" className="rounded-xl border border-black/10 px-3 py-2 text-sm">
+                <option value="Live">Live</option>
+                <option value="Recordings">Recordings</option>
+              </select>
+            </div>
+
+            <div className="grid gap-2 md:col-span-2">
+              <label className="text-sm font-bold">Goals</label>
+              <textarea
+                name="goals"
+                rows={5}
+                className="rounded-xl border border-black/10 px-3 py-2 text-sm"
+                placeholder="Tell us your goal and what you want to achieve..."
+              />
+            </div>
           </div>
 
-          <div className="grid gap-2 md:col-span-2">
-            <label className="text-sm font-bold">Goals</label>
-            <textarea
-              name="goals"
-              rows={5}
-              className="rounded-xl border border-black/10 px-3 py-2 text-sm"
-              placeholder="Tell us your goal and what you want to achieve..."
-            />
-          </div>
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-2">
-          <PrimaryButton type="submit">Submit Application</PrimaryButton>
-          <SecondaryButton type="button" onClick={onDone}>Back</SecondaryButton>
-        </div>
-      </form>
-
-
-          <div className="grid gap-2 md:col-span-2">
-            <label className="text-sm font-bold">Goals</label>
-            <textarea
-              name="goals"
-              rows={5}
-              className="rounded-xl border border-black/10 px-3 py-2 text-sm"
-              placeholder="Tell us your goal and what you want to achieve..."
-            />
-          </div>
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-2">
-          <form netlify
-            name="academy-application"
-            method="POST"
-            data-netlify="true"
-            onSubmit={async (e) => {
-              e.preventDefault();
-
-              const form = e.target;
-              const formData = new FormData(form);
-
-              await fetch("/", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString(),
-              });
-
-              setSubmitted(true);
-            }}
-          >
-            <input type="hidden" name="form-name" value="academy-application" />
-
-            <PrimaryButton type="submit">
-              Submit Application
-            </PrimaryButton>
-
+          <div className="mt-6 flex flex-wrap gap-2">
+            <PrimaryButton type="submit">Submit Application</PrimaryButton>
             <SecondaryButton type="button" onClick={onDone}>
               Back
             </SecondaryButton>
-          </form>
-        </div>
+          </div>
+        </form>
 
 
         <div className="mt-6 grid gap-3 md:grid-cols-2">
@@ -848,6 +807,7 @@ function ApplyPanel({ selectedProgram, setSelectedProgram, onDone }) {
           </Card>
         </div>
       </div>
+    </div>
   );
 }
 
@@ -864,4 +824,3 @@ function Field({ label, placeholder, name, type = "text" }) {
     </div>
   );
 }
-
